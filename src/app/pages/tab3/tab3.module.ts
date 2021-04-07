@@ -7,6 +7,9 @@ import { Tab3Page } from './tab3.page';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
+import { PipesModule } from 'src/app/pipes/pipes.module';
+import { ComponentsModule } from 'src/app/components/components.module';
+
 @NgModule({
   imports: [
     IonicModule,
@@ -14,6 +17,8 @@ import { Tab3PageRoutingModule } from './tab3-routing.module';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
+    ComponentsModule,
+    PipesModule,
   ],
   declarations: [Tab3Page]
 })
