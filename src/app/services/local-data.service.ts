@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Storage } from '@ionic/storage-angular';
 
 import { MovieDetail } from '../interfaces/interfaces';
 
@@ -13,11 +13,16 @@ export class LocalDataService {
   movies: MovieDetail[] = [];
 
   constructor(
-    private storage: NativeStorage,
+    private storage: Storage,
     private toastCtrl: ToastController
   ) {
+    this.init();
     this.loadFavorites();
    }
+
+  async init() {
+    await this.storage.create();
+  }
 
   saveMovie(movie: MovieDetail) {
 
@@ -32,14 +37,14 @@ export class LocalDataService {
       message = 'Borrado de favoritos';
     }
 
-    this.storage.setItem('movies', this.movies);
+    this.storage.set('movies', this.movies);
     this.presentToast(message);
 
     return !control;
   }
 
   async loadFavorites() {
-    const movies = await this.storage.getItem('movies');
+    const movies = await this.storage.get('movies');
     this.movies = movies || [];
     return this.movies;
   }
